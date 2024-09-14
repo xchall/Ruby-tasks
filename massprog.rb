@@ -7,6 +7,7 @@ def min_item(arr)
 	end
 	return min
 end	
+
 #номер первого положительного элемента
 def num_first_pos(arr)
 	i = 0
@@ -19,11 +20,14 @@ def num_first_pos(arr)
 	return -1
 end
 
-puts ("1.Минимальный элемент массива \n2.Первый положительный элемент массива \nВыберите метод (напишите 1 или 2):  ")
-met = gets.chomp
-#C:\Users\max\Desktop\Ruby\test\mass_example.txt
-puts ("Введите путь к файлу, содержащий массив для обработки")
-fpath = gets.chomp
+# puts ("1.Минимальный элемент массива \n2.Первый положительный элемент массива \nВыберите метод (напишите 1 или 2):  ")
+# #C:\Users\max\Desktop\Ruby\test\mass_example.txt
+met = ARGV[0]
+fpath = ARGV[1]
+if(!File.exist?(fpath)) then 
+	puts "Путь к файлу указан неверно"
+	exit
+end
 if( met != "1" and met != "2") then
 	puts "Метод выбран неверно"
 	exit
