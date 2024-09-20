@@ -4,6 +4,7 @@ def min_item(arr)
 	for x in arr do
 		min = x if x < min
 	end
+	min
 end	
 #первый положительный элемент
 def num_first_pos(arr)
