@@ -5,7 +5,7 @@ def min_item(arr)
 		xx = x.to_i
 		min = xx if xx < min
 	end
-	return min
+	min
 end	
 
 #номер первого положительного элемента
