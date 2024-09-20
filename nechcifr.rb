@@ -9,5 +9,6 @@ def nechcifr(num)
 		end
 	end
 	amount
+	
 end
 
