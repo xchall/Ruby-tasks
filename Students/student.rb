@@ -36,24 +36,14 @@ class Student
 		@git = git
 	end
 	def getInfo()
-		information = "ФИО: #{self.surname} #{self.name[0]}.#{self.patronymic[0]}. "
-		information += "Git: "
+		information = self.getPhio()
+		information += " Git: "
 		if self.git!= nil
 			information += "#{self.git}"
 		else 
 			information += "Отсутствует "
 		end
-		contact = "Контакт: "
-		if self.teleg!=nil 
-			contact += "Telegram #{self.teleg}"
-		elsif self.email!=nil 
-			contact += "Почта #{self.email}"
-		elsif self.phone!=nil
-			contact += "Номер телефона #{self.phone}"
-		else
-			contact += "Отсутствует"
-		end
-		information += contact
+		information += self.getContact()
 	end
 	def getPhio()
 		information = "ФИО: #{self.surname} #{self.name[0]}.#{self.patronymic[0]}."
@@ -96,6 +86,7 @@ class Student
 			true
 		end
 	end
+
 	def has_phone?()
 		if self.phone == nil
 			false
