@@ -36,21 +36,21 @@ class Student
 	end
 	def self.phone_valid?(phone)
 		if phone == nil
-			false
+			true
 		else
 			phone.match?(/^\+7\d{10}$/)
 		end
 	end
 	def self.id_valid?(id)
 		if id == nil
-			false
+			true
 		else
 			id.match?(/^\d+$/)
 		end
 	end
 	def self.surname_valid?(surname)
 		if surname == nil
-			false
+			false #фио обязательное
 		else
 			surname.match?(/^[A-ZА-ЯЁ][a-zа-яё]+$/)
 		end
@@ -71,22 +71,22 @@ class Student
 	end
 	def self.teleg_valid?(teleg)
 		if teleg == nil
-			false
+			true
 		else
-			teleg2 = telg.down_case() #имена пользователей тг не чуствительны к регистру
+			teleg2 = teleg.downcase() #имена пользователей тг не чуствительны к регистру
 			teleg2.match?(/^@[a-z_0-9]{5,32}+$/)
 		end
 	end
 	def self.email_valid?(email)
-		if id == nil
-			false
+		if email == nil
+			true
 		else
-			email.match?(/^[A-Za-z_0-9]+@[A-Za-z_0-9]+\.[A-Za-z]$/)
+			email.match?(/^[A-Za-z_0-9]+@[A-Za-z_0-9]+\.[A-Za-z]+$/)
 		end
 	end
 	def self.git_valid?(git)
 		if git == nil
-			false
+			true
 		else
 			git.match?(/^(https:\/\/)?github.com\/[a-zA-Z0-9_-]+$/)
 		end
@@ -94,5 +94,4 @@ class Student
 	def to_s
 		"id = #{@id || 'не задано'},\n surname = #{@surname},\n name = #{@name},\n patronymic = #{@patronymic},\n phone = #{@phone || 'не задано'},\n teleg = #{@teleg || 'не задано'},\n email = #{@email || 'не задано'},\n git = #{@git || 'не задано'}"
 	end
-
 end
