@@ -1,5 +1,6 @@
 class Student
-	attr_accessor :surname, :name, :patronymic, :id, :phone, :teleg, :email, :git
+	attr_accessor :surname, :name, :patronymic, :id
+	attr_reader :phone, :teleg, :email, :git #теперь без сеттеров
 	def initialize(surname:, name:, patronymic:, id: nil, phone: nil, teleg: nil, email: nil, git: nil)
 		if Student.id_valid?(id) == false
 			raise ArgumentError, "Неверный формат id пользователя #{id}"
@@ -33,6 +34,17 @@ class Student
 		@teleg = teleg
 		@email = email
 		@git = git
+	ends
+	def set_contacts(phone: nil, teleg: nil, email: nil)
+		if phone != nil && Student.phone_valid?(phone)
+			@phone = phone
+		end
+		if teleg != nil && Student.teleg_valid?(teleg)
+			@teleg = teleg
+		end
+		if email != nil && Student.email_valid?(email)
+			@email = email
+		end
 	end
 	def has_git?()
 		if self.git == nil
