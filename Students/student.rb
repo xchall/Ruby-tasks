@@ -1,39 +1,63 @@
 class Student
 	attr_accessor :surname, :name, :patronymic, :id
-	attr_reader :phone, :teleg, :email, :git #теперь без сеттеров
-	def initialize(surname:, name:, patronymic:, id: nil, phone: nil, teleg: nil, email: nil, git: nil)
-		if Student.id_valid?(id) == false
-			raise ArgumentError, "Неверный формат id пользователя #{id}"
-		end
+	attr_reader :phone, :teleg, :email, :git 
+	def surname=(surname)
 		if Student.surname_valid?(surname) == false
 			raise ArgumentError, "Неверный формат фамилии #{surname}"
 		end
+		@surname = surname 
+	end
+	def name=(name)
 		if Student.name_valid?(name) == false
 			raise ArgumentError, "Неверный формат имени #{name}"
 		end
+		@name = name
+	end
+	def patronymic=(patronymic)
 		if Student.patronymic_valid?(patronymic) == false
 			raise ArgumentError, "Неверный формат отчества #{patronymic}"
 		end
+		@patronymic = patronymic
+	end
+	def id=(id)
+		if Student.id_valid?(id) == false
+			raise ArgumentError, "Неверный формат id пользователя #{id}"
+		end
+		@id = id
+	end
+	private def phone=(phone)
 		if Student.phone_valid?(phone) == false
 			raise ArgumentError, "Неверный формат номера телефона #{phone}"
 		end
+		@phone = phone
+	end
+	private def teleg=(teleg)
 		if Student.teleg_valid?(teleg) == false
 			raise ArgumentError, "Неверный формат телеграма #{teleg}"
 		end
+		@teleg = teleg
+	end
+	private def email=(email)
 		if Student.email_valid?(email) == false
 			raise ArgumentError, "Неверный формат почты #{email}"
 		end
+		@email = email
+	end
+	private def git=(git)
 		if Student.git_valid?(git) == false
 			raise ArgumentError, "Неверный формат гита #{git}"
 		end
-		@id = id
-		@surname = surname
-		@name = name 
-		@patronymic = patronymic
-		@phone = phone
-		@teleg = teleg
-		@email = email
 		@git = git
+	end
+	def initialize(surname:, name:, patronymic:, id: nil, phone: nil, teleg: nil, email: nil, git: nil)
+		self.id = id #через self вызывается setter, а не сразу обращаемся к полю @
+		self.surname = surname
+		self.name = name 
+		self.patronymic = patronymic
+		self.phone = phone
+		self.teleg = teleg
+		self.email = email
+		self.git = git
 	end
 	def getInfo()
 		information = self.getPhio()
@@ -69,18 +93,18 @@ class Student
 		end
 	end
 	def set_contacts(phone: nil, teleg: nil, email: nil)
-		if phone != nil && Student.phone_valid?(phone)
-			@phone = phone
+		if phone != nil
+			self.phone = phone
 		end
-		if teleg != nil && Student.teleg_valid?(teleg)
-			@teleg = teleg
+		if teleg != nil
+			self.teleg = teleg
 		end
-		if email != nil && Student.email_valid?(email)
-			@email = email
+		if email != nil
+			self.email = email
 		end
 	end
 	def has_git?()
-		if self.git == nil
+		if self.git == nil 
 			false
 		else
 			true
