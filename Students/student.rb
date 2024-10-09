@@ -34,7 +34,50 @@ class Student
 		@teleg = teleg
 		@email = email
 		@git = git
-	ends
+	end
+	def getInfo()
+		information = "ФИО: #{self.surname} #{self.name[0]}.#{self.patronymic[0]}. "
+		information += "Git: "
+		if self.git!= nil
+			information += "#{self.git}"
+		else 
+			information += "Отсутствует "
+		end
+		contact = "Контакт: "
+		if self.teleg!=nil 
+			contact += "Telegram #{self.teleg}"
+		elsif self.email!=nil 
+			contact += "Почта #{self.email}"
+		elsif self.phone!=nil
+			contact += "Номер телефона #{self.phone}"
+		else
+			contact += "Отсутствует"
+		end
+		information += contact
+	end
+	def getPhio()
+		information = "ФИО: #{self.surname} #{self.name[0]}.#{self.patronymic[0]}."
+	end
+	def getGit()
+		information = "Git: "
+		if self.git!= nil
+			information += "#{self.git}"
+		else 
+			information += "Отсутствует "
+		end
+	end
+	def getContact()
+		contact = "Контакт: "
+		if self.teleg!=nil 
+			contact += "Telegram #{self.teleg}"
+		elsif self.email!=nil 
+			contact += "Почта #{self.email}"
+		elsif self.phone!=nil
+			contact += "Номер телефона #{self.phone}"
+		else
+			contact += "Отсутствует"
+		end
+	end
 	def set_contacts(phone: nil, teleg: nil, email: nil)
 		if phone != nil && Student.phone_valid?(phone)
 			@phone = phone
