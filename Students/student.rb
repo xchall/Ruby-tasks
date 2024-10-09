@@ -34,6 +34,37 @@ class Student
 		@email = email
 		@git = git
 	end
+	def has_git?()
+		if self.git == nil
+			false
+		else
+			true
+		end
+	end
+	def has_phone?()
+		if self.phone == nil
+			false
+		else
+			true
+		end
+	end
+	def has_teleg?()
+		if self.teleg == nil
+			false
+		else
+			true
+		end
+	end
+	def has_email?()
+		if self.email == nil
+			false
+		else
+			true
+		end
+	end
+	def contain?()
+		return self.has_git?() && (self.has_email?() || self.has_teleg?() || self.has_phone?() || self.has_email?())
+	end
 	def self.phone_valid?(phone)
 		if phone == nil
 			true
