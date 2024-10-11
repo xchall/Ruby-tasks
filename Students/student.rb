@@ -1,4 +1,5 @@
-class Student
+require_relative "student_major"
+class Student < StudentMajor
 	attr_accessor :surname, :name, :patronymic, :id
 	attr_reader :phone, :teleg, :email, :git 
 	def surname=(surname)
@@ -19,12 +20,6 @@ class Student
 		end
 		@patronymic = patronymic
 	end
-	def id=(id)
-		if Student.id_valid?(id) == false
-			raise ArgumentError, "Неверный формат id пользователя #{id}"
-		end
-		@id = id
-	end
 	private def phone=(phone)
 		if Student.phone_valid?(phone) == false
 			raise ArgumentError, "Неверный формат номера телефона #{phone}"
@@ -43,12 +38,6 @@ class Student
 		end
 		@email = email
 	end
-	private def git=(git)
-		if Student.git_valid?(git) == false
-			raise ArgumentError, "Неверный формат гита #{git}"
-		end
-		@git = git
-	end
 	def initialize(surname:, name:, patronymic:, id: nil, phone: nil, teleg: nil, email: nil, git: nil)
 		self.id = id #через self вызывается setter, а не сразу обращаемся к полю @
 		self.surname = surname
@@ -63,7 +52,7 @@ class Student
 		information = self.getPhio()
 		information += " Git: "
 		if self.git!= nil
-			information += "#{self.git}"
+			information += "#{self.git} "
 		else 
 			information += "Отсутствует "
 		end
@@ -75,7 +64,7 @@ class Student
 	def getGit()
 		information = "Git: "
 		if self.git!= nil
-			information += "#{self.git}"
+			information += "#{self.git} "
 		else 
 			information += "Отсутствует "
 		end
@@ -87,7 +76,7 @@ class Student
 		elsif self.email!=nil 
 			contact += "Почта #{self.email}"
 		elsif self.phone!=nil
-			contact += "Номер телефона #{self.phone}"
+			contact += "Номер_телефона #{self.phone}"
 		else
 			contact += "Отсутствует"
 		end
@@ -135,20 +124,6 @@ class Student
 	def contain?()
 		return self.has_git?() && (self.has_email?() || self.has_teleg?() || self.has_phone?() || self.has_email?())
 	end
-	def self.phone_valid?(phone)
-		if phone == nil
-			true
-		else
-			phone.match?(/^\+7\d{10}$/)
-		end
-	end
-	def self.id_valid?(id)
-		if id == nil
-			true
-		else
-			id.match?(/^\d+$/)
-		end
-	end
 	def self.surname_valid?(surname)
 		if surname == nil
 			false #фио обязательное
@@ -169,30 +144,5 @@ class Student
 		else
 			patronymic.match?(/^[A-ZА-ЯЁ][a-zа-яё]+$/)
 		end
-	end
-	def self.teleg_valid?(teleg)
-		if teleg == nil
-			true
-		else
-			teleg2 = teleg.downcase() #имена пользователей тг не чуствительны к регистру
-			teleg2.match?(/^@[a-z_0-9]{5,32}+$/)
-		end
-	end
-	def self.email_valid?(email)
-		if email == nil
-			true
-		else
-			email.match?(/^[A-Za-z_0-9]+@[A-Za-z_0-9]+\.[A-Za-z]+$/)
-		end
-	end
-	def self.git_valid?(git)
-		if git == nil
-			true
-		else
-			git.match?(/^(https:\/\/)?github.com\/[a-zA-Z0-9_-]+$/)
-		end
-	end
-	def to_s
-		"id = #{@id || 'не задано'},\n surname = #{@surname},\n name = #{@name},\n patronymic = #{@patronymic},\n phone = #{@phone || 'не задано'},\n teleg = #{@teleg || 'не задано'},\n email = #{@email || 'не задано'},\n git = #{@git || 'не задано'}"
 	end
 end
