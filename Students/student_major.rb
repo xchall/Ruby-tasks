@@ -1,13 +1,13 @@
 class StudentMajor
 	attr_reader :phone, :teleg, :email, :git, :id 
 	def id=(id)
-		if Student.id_valid?(id) == false
+		if StudentMajor.id_valid?(id) == false
 			raise ArgumentError, "Неверный формат id пользователя #{id}"
 		end
 		@id = id
 	end
 	private def git=(git)
-		if Student.git_valid?(git) == false
+		if StudentMajor.git_valid?(git) == false
 			raise ArgumentError, "Неверный формат гита #{git}"
 		end
 		@git = git
@@ -46,13 +46,13 @@ class StudentMajor
 		end
 	end
 	def self.git_valid?(git)
-		if git == nil
+		if git == nil || git ==" "
 			true
 		else
 			git.match?(/^(https:\/\/)?github.com\/[a-zA-Z0-9_-]+$/)
 		end
 	end
 	def to_s
-		"id = #{@id || 'не задано'},\n surname = #{@surname},\n name = #{@name},\n patronymic = #{@patronymic},\n phone = #{@phone || 'не задано'},\n teleg = #{@teleg || 'не задано'},\n email = #{@email || 'не задано'},\n git = #{@git || 'не задано'}"
+		"id = #{@id}\nsurname = #{@surname}\nname = #{@name}\npatronymic = #{@patronymic}\nphone = #{@phone}\nteleg = #{@teleg}\nemail = #{@email}\ngit = #{@git}"
 	end
 end
