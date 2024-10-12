@@ -1,7 +1,6 @@
 require_relative "student_major"
 class Student < StudentMajor
-	attr_accessor :surname, :name, :patronymic, :id
-	attr_reader :phone, :teleg, :email, :git 
+	attr_reader :surname, :name, :patronymic
 	def surname=(surname)
 		if Student.surname_valid?(surname) == false
 			raise ArgumentError, "Неверный формат фамилии #{surname}"
