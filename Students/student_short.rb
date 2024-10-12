@@ -2,6 +2,31 @@ require_relative "student"
 require_relative "student_major"
 class StudentShort < StudentMajor
 	attr_reader :surname_in, :contact
+	def contact=(contact)
+		if StudentShort.contact_valid?(contact) == false
+			raise ArgumentError, "Неверный формат контакта #{contact}"
+		end
+		@contact = contact
+	end
+	def self.contact_valid?(contact)
+		if(contact == nil || contact ==" ")
+			return true
+		end
+		con = contact.split(" ")
+		if(con.length()!= 2)
+			false
+		end
+		case con[0]
+		when "Telegram"
+			StudentShort.teleg_valid?(con[1])
+		when "Phone_number"
+			StudentShort.phone_valid?(con[1])
+		when "Email"
+			StudentShort.email_valid?(con[1])
+		else
+			false
+		end
+	end
 	def surname_in=(surname_in)
 		if StudentShort.surname_in_valid?(surname_in) == false
 			raise ArgumentError, "Неверный формат фамилии и инициалов #{surname_in}"
@@ -15,65 +40,22 @@ class StudentShort < StudentMajor
 			surname_in.match?(/^[A-ZА-ЯЁ][a-zа-яё]+ [A-ZА-ЯЁ]\.[A-ZА-ЯЁ]\.$/)
 		end
 	end
-	def initialize(student:nil, id:nil , information:nil)
-		if student != nil
-			#проводить валидацию не нужно
-			phio = student.getPhio().split(" ")
-			@surname_in = phio[1] + " " +phio[2]
-			@git = student.git
-			@id = student.id
-			cont = student.getContact().split(" ")
-			if(cont[1] != "Отсутствует") 
-				@contact = cont[1] + " " + cont[2]
-			else 
-				@contact = cont[1]
-			end
-		elsif   information != nil
-			#проводить валидацию нужно
-			self.id = id
-			raspakovka_inform(information)
+	def initialize(id:, info:)#нужна валидация
+		self.id = id
+		information = info.split("\n")
+		if information.length()!=3
+			raise ArgumentError, "Неверный формат строки информация #{information.length()}"
 		end
+		self.surname_in = information[0]
+		self.git = information[1]
+		self.contact = information[2]
 	end
-	def raspakovka_inform(information) #декодирование
-		arr = information.split(" ")
-		if arr.length() < 7 
-			raise ArgumentError, "Неверный формат строки с информацией."
-		end
-		self.surname_in = arr[1] +" "+ arr[2]
-		if arr[4] != "Отсутствует"
-			self.git = arr[4]
-		else
-			@git = arr[4]
-		end
-		if(arr[6] != "Отсутствует")
-			@contact =arr[6]
-			case arr[6]
-			when "Telegram"
-				if StudentShort.teleg_valid?(arr[7])
-					@contact += (" " +arr[7])
-				else
-					raise ArgumentError, "Неверный формат Telegram."
-				end
-			when "Номер_телефона"
-				if StudentShort.phone_valid?(arr[7])
-					@contact += (" " +arr[7])
-				else
-					raise ArgumentError, "Неверный формат номера телефона."
-				end
-			when "Почта"
-				if StudentShort.email_valid?(arr[7])
-					@contact += (" " +arr[7])
-				else
-					raise ArgumentError, "Неверный формат почты."
-				end
-			else
-				raise ArgumentError, "Неверный формат контакта."
-			end
-		else
-			@contact = arr[6]
-		end
+	def self.constructor(student:)
+		information = "#{student.get_info()}"
+		StudentShort.new(id: student.id, info: information)
 	end
+
 	def to_s
-		"id = #{@id || 'не задано'}\n surnameInicials = #{@surname_in}\n contact = #{@contact}\n git = #{@git || 'не задано'}"
+		"id = #{@id}\nsurnameInicials = #{@surname_in}\ncontact = #{@contact}\ngit = #{@git}"
 	end
 end
