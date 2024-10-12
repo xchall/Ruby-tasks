@@ -42,45 +42,36 @@ class Student < StudentMajor
 		self.surname = surname #через self вызывается setter, а не сразу обращаемся к полю @
 		self.name = name 
 		self.patronymic = patronymic
-		self.phone = phone
-		self.teleg = teleg
-		self.email = email
-		
+		self.set_contacts(phone: phone, teleg: teleg, email: email)
 	end
-	def getInfo()
-		information = self.getPhio()
-		information += " Git: "
-		if self.git!= nil
-			information += "#{self.git} "
-		else 
-			information += "Отсутствует "
-		end
-		information += self.getContact()
-	end
-	def getPhio()
-		information = "ФИО: #{self.surname} #{self.name[0]}.#{self.patronymic[0]}."
-	end
-	def getGit()
-		information = "Git: "
-		if self.git!= nil
-			information += "#{self.git} "
-		else 
-			information += "Отсутствует "
-		end
-	end
-	def getContact()
-		contact = "Контакт: "
-		if self.teleg!=nil 
-			contact += "Telegram #{self.teleg}"
-		elsif self.email!=nil 
-			contact += "Почта #{self.email}"
-		elsif self.phone!=nil
-			contact += "Номер_телефона #{self.phone}"
+	def get_info()
+		information = self.get_phio() +"\n"
+		if self.has_git?()
+			information += self.git
 		else
-			contact += "Отсутствует"
+			information+= " "
+		end
+		information += "\n"
+		if self.has_contact?() 
+			information += self.get_contact() 
+		else
+			information+= " "
+		end
+		return information
+	end
+	def get_phio()
+		return "#{self.surname} #{self.name[0]}.#{self.patronymic[0]}."
+	end
+	def get_contact()
+		if self.teleg!=nil 
+			"Telegram "+self.teleg
+		elsif self.email!=nil 
+			"Email " +self.email
+		elsif self.phone!=nil
+			"Phone_number "+self.phone
 		end
 	end
-	def set_contacts(phone: nil, teleg: nil, email: nil)
+	def set_contacts(phone:, teleg:, email:)
 		if phone != nil
 			self.phone = phone
 		end
@@ -99,33 +90,36 @@ class Student < StudentMajor
 		end
 	end
 
-	def has_phone?()
+	private def has_phone?()
 		if self.phone == nil
 			false
 		else
 			true
 		end
 	end
-	def has_teleg?()
+	private def has_teleg?()
 		if self.teleg == nil
 			false
 		else
 			true
 		end
 	end
-	def has_email?()
+	private def has_email?()
 		if self.email == nil
 			false
 		else
 			true
 		end
 	end
+	private def has_contact?()
+		return self.has_email?() || self.has_teleg?() || self.has_phone?() || self.has_email?()
+	end
 	def contain?()
-		return self.has_git?() && (self.has_email?() || self.has_teleg?() || self.has_phone?() || self.has_email?())
+		 return self.has_git?() && self.has_contact?()
 	end
 	def self.surname_valid?(surname)
 		if surname == nil
-			false #фио обязательное
+			false 
 		else
 			surname.match?(/^[A-ZА-ЯЁ][a-zа-яё]+$/)
 		end
