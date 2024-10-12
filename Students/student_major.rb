@@ -6,7 +6,7 @@ class StudentMajor
 		end
 		@id = id
 	end
-	private def git=(git)
+	def git=(git)
 		if StudentMajor.git_valid?(git) == false
 			raise ArgumentError, "Неверный формат гита #{git}"
 		end
