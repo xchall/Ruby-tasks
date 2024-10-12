@@ -1,7 +1,7 @@
 require_relative "student"
 require_relative "student_major"
 class StudentShort < StudentMajor
-	attr_reader :id, :surname_in, :git, :contact
+	attr_reader :surname_in, :contact
 	def surname_in=(surname_in)
 		if StudentShort.surname_in_valid?(surname_in) == false
 			raise ArgumentError, "Неверный формат фамилии и инициалов #{surname_in}"
@@ -36,6 +36,9 @@ class StudentShort < StudentMajor
 	end
 	def raspakovka_inform(information) #декодирование
 		arr = information.split(" ")
+		if arr.length() < 7 
+			raise ArgumentError, "Неверный формат строки с информацией."
+		end
 		self.surname_in = arr[1] +" "+ arr[2]
 		if arr[4] != "Отсутствует"
 			self.git = arr[4]
