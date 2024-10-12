@@ -39,14 +39,14 @@ class Student < StudentMajor
 		@email = email
 	end
 	def initialize(surname:, name:, patronymic:, id: nil, phone: nil, teleg: nil, email: nil, git: nil)
-		self.id = id #через self вызывается setter, а не сразу обращаемся к полю @
-		self.surname = surname
+		super(id:id, git:git)
+		self.surname = surname #через self вызывается setter, а не сразу обращаемся к полю @
 		self.name = name 
 		self.patronymic = patronymic
 		self.phone = phone
 		self.teleg = teleg
 		self.email = email
-		self.git = git
+		
 	end
 	def getInfo()
 		information = self.getPhio()
