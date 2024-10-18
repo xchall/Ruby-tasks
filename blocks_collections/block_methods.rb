@@ -1,3 +1,16 @@
+def left_neighbour(mas)
+	count = 0
+	prev = mas[0]
+	ans = []
+	mas.each_with_index do |elem, ind|
+		if ind != 0 &&  elem < prev
+			count += 1
+			ans.push(ind)
+		end
+		prev = elem
+	end
+	return ans
+end
 def max_in_interval(mas, a, b)
 	max = a - 1
 	mas.each do |elem|
@@ -29,7 +42,7 @@ def before_min_to_end(mas)
 			mas_el_aft.push(elem)
 		end
 	end
-	mas = mas_el_aft + mas_el_bef
+	mas.replace(mas_el_aft + mas_el_bef)#изменяем содержимое оригинального массива, не создавая ссылку на другой объект
 end
 def count_after_max(mas)
 	count = 0
@@ -43,4 +56,3 @@ def count_after_max(mas)
 	end
 	count
 end
-
