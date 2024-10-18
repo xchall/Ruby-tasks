@@ -65,4 +65,13 @@ class ObrabotkaMas
 			"No any block"
 		end
 	end
+	def min_max
+		min = @mas[0]
+		max = @mas[0]
+		@mas.each do |elem|
+			max = elem if elem > max
+			min = elem if elem < min
+		end
+		return min, max
+	end
 end
