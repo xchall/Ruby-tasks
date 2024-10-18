@@ -43,6 +43,16 @@ class ObrabotkaMas
 			"No any block"
 		end
 	end
+	def none?(&block)
+		if block_given?
+			@mas.each_with_index do |elem, ind|
+				if block.call(elem)
+					return false
+				end
+			end
+			return true
+		else 
+			"No any block"
+		end
+	end
 end
-
-
