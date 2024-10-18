@@ -74,4 +74,17 @@ class ObrabotkaMas
 		end
 		return min, max
 	end
+	def find_all
+		if block_given?
+			ans = []
+			@mas.each do |elem|
+				if yield(elem) 
+					ans.push(elem)
+				end
+			end
+			return ans
+		else 
+			"No any block"
+		end
+	end
 end
