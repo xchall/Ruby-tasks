@@ -31,5 +31,18 @@ class ObrabotkaMas
 			"No any block"
 		end
 	end
+	def find_index(&block)
+		if block_given?
+			@mas.each_with_index do |elem, ind|
+				if block.call(elem)
+					return ind
+				end
+			end
+			return nil
+		else 
+			"No any block"
+		end
+	end
 end
+
 
