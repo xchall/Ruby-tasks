@@ -1,3 +1,16 @@
+def max_in_interval(mas, a, b)
+	max = a - 1
+	mas.each do |elem|
+		if elem >= a && elem <=b &&  elem > max
+			max = elem
+		end
+	end
+	if max == a - 1
+		nil
+	else
+		max
+	end
+end
 def before_min_to_end(mas)
 	ind_min = 0
 	min = mas[0]
@@ -21,10 +34,8 @@ end
 def count_after_max(mas)
 	count = 0
 	max = mas.max
-	l_ind = 0
 	mas.each do |elem|
 		if elem == max
-
 			count = 0
 		else
 			count += 1
@@ -32,3 +43,4 @@ def count_after_max(mas)
 	end
 	count
 end
+
