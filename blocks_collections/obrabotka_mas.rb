@@ -55,4 +55,14 @@ class ObrabotkaMas
 			"No any block"
 		end
 	end
+	def reduce(accumulator, &block)
+		if block_given?
+			@mas.each do |elem|
+				accumulator = block.call(accumulator, elem)
+			end
+			return accumulator
+		else 
+			"No any block"
+		end
+	end
 end
