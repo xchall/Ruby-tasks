@@ -1,5 +1,5 @@
 class ObrabotkaMas
-	private def mas=(mas)
+	private def self.mas=(mas)#сделаем методом класса
 		if mas.is_a?(Array)
 			@mas = mas
 		else
