@@ -1,5 +1,5 @@
 class StudentMajor
-	attr_reader :phone, :teleg, :email, :git, :id 
+	attr_reader :git, :id 
 	def id=(id)
 		if StudentMajor.id_valid?(id) == false
 			raise ArgumentError, "Неверный формат id пользователя #{id}"
