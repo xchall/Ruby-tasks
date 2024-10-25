@@ -1,6 +1,6 @@
 require_relative "student_major"
 class Student < StudentMajor
-	attr_reader :surname, :name, :patronymic
+	attr_reader :surname, :name, :patronymic, :phone, :teleg, :email
 	def surname=(surname)
 		if Student.surname_valid?(surname) == false
 			raise ArgumentError, "Неверный формат фамилии #{surname}"
@@ -89,31 +89,18 @@ class Student < StudentMajor
 			true
 		end
 	end
-
-	private def has_phone?()
-		if self.phone == nil
-			false
-		else
-			true
+	def has_contact?()
+		if self.tg != nil
+			return true
 		end
-	end
-	private def has_teleg?()
-		if self.teleg == nil
-			false
-		else
-			true
+		if self.phone != nil
+			return true
 		end
-	end
-	private def has_email?()
-		if self.email == nil
-			false
-		else
-			true
+		if self.email != nil
+			return true
 		end
-	end
-	private def has_contact?()
-		return self.has_email?() || self.has_teleg?() || self.has_phone?() || self.has_email?()
-	end
+		return false
+	end	
 	def contain?()
 		 return self.has_git?() && self.has_contact?()
 	end
