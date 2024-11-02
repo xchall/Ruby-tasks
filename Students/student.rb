@@ -1,6 +1,6 @@
 require_relative "student_major"
 class Student < StudentMajor
-	attr_reader :surname, :name, :patronymic, :phone, :teleg, :email
+	attr_reader :surname, :name, :patronymic
 	def surname=(surname)
 		if Student.surname_valid?(surname) == false
 			raise ArgumentError, "Неверный формат фамилии #{surname}"
@@ -43,9 +43,13 @@ class Student < StudentMajor
 		self.name = name 
 		self.patronymic = patronymic
 		self.set_contacts(phone: phone, teleg: teleg, email: email)
+		phio()
+	end
+	private def phio()
+		@surname_in = "#{@surname} #{@name[0]}.#{@patronymic[0]}."
 	end
 	def get_info()
-		information = self.get_phio() +"\n"
+		information = surname_in +"\n"
 		if self.has_git?()
 			information += self.git
 		else
@@ -59,18 +63,6 @@ class Student < StudentMajor
 		end
 		return information
 	end
-	def get_phio()
-		return "#{self.surname} #{self.name[0]}.#{self.patronymic[0]}."
-	end
-	def get_contact()
-		if self.teleg!=nil 
-			"Telegram "+self.teleg
-		elsif self.email!=nil 
-			"Email " +self.email
-		elsif self.phone!=nil
-			"Phone_number "+self.phone
-		end
-	end
 	def set_contacts(phone:, teleg:, email:)
 		if phone != nil
 			self.phone = phone
@@ -81,28 +73,6 @@ class Student < StudentMajor
 		if email != nil
 			self.email = email
 		end
-	end
-	def has_git?()
-		if self.git == nil 
-			false
-		else
-			true
-		end
-	end
-	def has_contact?()
-		if self.tg != nil
-			return true
-		end
-		if self.phone != nil
-			return true
-		end
-		if self.email != nil
-			return true
-		end
-		return false
-	end	
-	def contain?()
-		 return self.has_git?() && self.has_contact?()
 	end
 	def self.surname_valid?(surname)
 		if surname == nil
