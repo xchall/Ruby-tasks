@@ -1,20 +1,19 @@
 require_relative "student"
 require_relative "student_major"
 class StudentShort < StudentMajor
-	attr_reader :surname_in, :contact
 	def contact=(contact)
 		if StudentShort.contact_valid?(contact) == false
 			raise ArgumentError, "Неверный формат контакта #{contact}"
 		end
 		@contact = contact
 	end
-	def self.contact_valid?(contact)
+	private def self.contact_valid?(contact)
 		if(contact == nil || contact ==" ")
 			return true
 		end
 		con = contact.split(" ")
 		if(con.length()!= 2)
-			false
+			return false
 		end
 		case con[0]
 		when "Telegram"
@@ -50,7 +49,7 @@ class StudentShort < StudentMajor
 		self.git = information[1]
 		self.contact = information[2]
 	end
-	def self.constructor(student:)
+	def self.init_from_student(student:)
 		information = "#{student.get_info()}"
 		StudentShort.new(id: student.id, info: information)
 	end
