@@ -1,5 +1,5 @@
 class StudentMajor
-	attr_reader :git, :id 
+	attr_reader :git, :id, :surname_in, :contact, :phone, :teleg, :email
 	def id=(id)
 		if StudentMajor.id_valid?(id) == false
 			raise ArgumentError, "Неверный формат id пользователя #{id}"
@@ -11,6 +11,45 @@ class StudentMajor
 			raise ArgumentError, "Неверный формат гита #{git}"
 		end
 		@git = git
+	end
+	def has_git?()
+		if self.git == nil 
+			false
+		else
+			true
+		end
+	end
+	def has_contact?()
+		if self.tg != nil
+			return true
+		end
+		if self.phone != nil
+			return true
+		end
+		if self.email != nil
+			return true
+		end
+		if self.contact != nil
+			return true
+		end
+		return false
+	end	
+	def contain?()
+		 return self.has_git?() && self.has_contact?()
+	end
+	def get_contact()
+		if self.teleg!=nil 
+			"Telegram "+self.teleg
+		elsif self.email!=nil 
+			"Email " +self.email
+		elsif self.phone!=nil
+			"Phone_number "+self.phone
+		end
+	end
+	def get_phio()
+		if self.surname_in != nil
+			return "ФИО #{self.surname_in}"
+		end
 	end
 	def initialize(id: nil, git: nil)
 		self.id = id 
