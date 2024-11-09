@@ -8,3 +8,7 @@ def before_min_to_end(mas)
 	m_ind = mas.index(min)
 	mas = mas[m_ind..mas.length-1] + mas[0..m_ind]
 end
+def max_in_interval(mas, a, b)
+	mas_choosed = mass.select{|x| x>=a && x<=b}
+	mas_choosed.max
+end
