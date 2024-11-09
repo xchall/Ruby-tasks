@@ -16,3 +16,17 @@ def left_neighbour(mas)
 	inds = mas[1..mas.length-1].select {|i| mas[i] < mas[i-1]}
 	return inds, inds.length 
 end
+def prost(del)
+	if del < 2
+		false
+	if del == 2
+		true
+	(2..del).none? {|i| del % i == 0}
+end
+def dels(num)
+	(1..num).select {|del| num % del == 0 && prost(del)}
+end
+def pos_prost_dels(mas)
+	mas.flat_map {|num| dels(num)}.uniq.sort
+end
+
