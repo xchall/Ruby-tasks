@@ -12,3 +12,7 @@ def max_in_interval(mas, a, b)
 	mas_choosed = mass.select{|x| x>=a && x<=b}
 	mas_choosed.max
 end
+def left_neighbour(mas)
+	inds = mas[1..mas.length-1].select {|i| mas[i] < mas[i-1]}
+	return inds, inds.length 
+end
