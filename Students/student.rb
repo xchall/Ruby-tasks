@@ -5,7 +5,7 @@ class Student < StudentMajor
 		if Student.surname_valid?(surname) == false
 			raise ArgumentError, "Неверный формат фамилии #{surname}"
 		end
-		@surname = surname 
+		@surname = surname
 	end
 	def name=(name)
 		if Student.name_valid?(name) == false
@@ -49,7 +49,7 @@ class Student < StudentMajor
 		@surname_in = "#{@surname} #{@name[0]}.#{@patronymic[0]}."
 	end
 	def get_info()
-		information = surname_in +"\n"
+		information = surname_in + "\n"
 		if self.has_git?()
 			information += self.git
 		else

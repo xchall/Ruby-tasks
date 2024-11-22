@@ -20,7 +20,7 @@ class StudentMajor
 		end
 	end
 	def has_contact?()
-		if self.tg != nil
+		if self.teleg != nil
 			return true
 		end
 		if self.phone != nil

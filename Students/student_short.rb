@@ -1,13 +1,8 @@
 require_relative "student"
 require_relative "student_major"
 class StudentShort < StudentMajor
-	def contact=(contact)
-		if StudentShort.contact_valid?(contact) == false
-			raise ArgumentError, "Неверный формат контакта #{contact}"
-		end
-		@contact = contact
-	end
-	private def self.contact_valid?(contact)
+	private 
+	def self.contact_valid?(contact)
 		if(contact == nil || contact ==" ")
 			return true
 		end
@@ -25,6 +20,12 @@ class StudentShort < StudentMajor
 		else
 			false
 		end
+	end
+	def contact=(contact)
+		if StudentShort.contact_valid?(contact) == false
+			raise ArgumentError, "Неверный формат контакта #{contact}"
+		end
+		@contact = contact
 	end
 	def surname_in=(surname_in)
 		if StudentShort.surname_in_valid?(surname_in) == false
