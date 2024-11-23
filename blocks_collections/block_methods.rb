@@ -28,3 +28,38 @@ end
 def pos_prost_dels(mas)
 	mas.flat_map {|num| dels(num)}.uniq.sort
 end
+def input_arr() 
+	puts "Введите элементы массива (через пробел):"
+	input = gets.chomp 
+	arr = input.split.map{|x| x.to_i}
+	return arr
+end
+puts "Задачи:\n1) Найти количество элементов, расположенных после последнего максимального.\n
+2) Расположить элементы расположенные до минимального в конце массива.\n
+3) Найти максимальный из элементов в интервале (a,b).\n
+4) Вывести индексы элементов, которые меньше своего левого соседа, и количество таких чисел.\n
+5) Построить список всех положительных простых делителей элементов списка без повторений."
+puts "\nВведите номер задачи: "
+num = gets.chomp.to_i
+case num
+when 1 
+	arr = input_arr()
+	puts count_after_max(arr)
+when 2 
+	arr = input_arr()
+	puts before_min_to_end(arr)
+when 3 
+	arr = input_arr()
+ 	puts "Введите интервал (a, b):"
+ 	puts "a: " 
+ 	a = gets.chomp.to_i
+ 	puts "b: " 
+ 	b = gets.chomp.to_i
+ 	puts  max_in_interval(arr, a, b)
+when 4 
+	arr = input_arr() 
+	puts left_neighbour(arr)
+when 5 
+	arr = input_arr()
+	puts pos_prost_dels(arr)
+end
