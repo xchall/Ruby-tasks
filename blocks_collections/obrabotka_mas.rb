@@ -1,5 +1,6 @@
 class ObrabotkaMas
-	private def self.mas=(mas)#сделаем методом класса
+	attr_reader :mas
+	private def mas=(mas)
 		if mas.is_a?(Array)
 			@mas = mas
 		else
@@ -10,19 +11,20 @@ class ObrabotkaMas
 		self.mas = mas
 	end
 	def get_elem_ind(index)
-		if(index < @mas.length && index > 0)
+		if(index < @mas.length && index >= 0)
 			@mas[index]
 		else 
 			"Out of range"
 		end
 	end
 	def array
- 		@array.dup #поверхностное копирование, для глубокого Marshal
+ 		@array.dup #поверхностное копирование
  	end
+
 	def any?(&block)
-		if block_given?
+		if block
 			@mas.each do |elem|
-				if yield(elem) #или block.call(elem)
+				if block.call(elem)
 					return true
 				end
 			end
@@ -32,7 +34,7 @@ class ObrabotkaMas
 		end
 	end
 	def find_index(&block)
-		if block_given?
+		if block
 			@mas.each_with_index do |elem, ind|
 				if block.call(elem)
 					return ind
@@ -44,7 +46,7 @@ class ObrabotkaMas
 		end
 	end
 	def none?(&block)
-		if block_given?
+		if block
 			@mas.each_with_index do |elem, ind|
 				if block.call(elem)
 					return false
@@ -56,7 +58,7 @@ class ObrabotkaMas
 		end
 	end
 	def reduce(accumulator, &block)
-		if block_given?
+		if block
 			@mas.each do |elem|
 				accumulator = block.call(accumulator, elem)
 			end
@@ -65,21 +67,27 @@ class ObrabotkaMas
 			"No any block"
 		end
 	end
-	def min_max
+	def min_max(&block)
+		if @mas.nil? 
+			return [nil, nil]
 		min = @mas[0]
 		max = @mas[0]
 		@mas.each do |elem|
-			max = elem if elem > max
-			min = elem if elem < min
+			if block
+				max = elem if block.call(el, min) < 0
+				min = elem if block.call(el, max) > 0
+			else:
+				max = elem if elem > max
+				min = elem if elem < min
 		end
-		return min, max
+		return [min, max]
 	end
 	def find_all
 		if block_given?
 			ans = []
 			@mas.each do |elem|
 				if yield(elem) 
-					ans.push(elem)
+					ans<<elem
 				end
 			end
 			return ans
