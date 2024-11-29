@@ -3,9 +3,10 @@ require_relative "C:/Users/max/Desktop/Ruby/Students/classes_models/data_table"
 class DataListStudentShort < DataList
 	def initialize(elems:)
 		super(elems:elems)
+		@names = ["number", "surname_in", "git", "contact"]
 	end
-	def get_names()
-		["id", "surname_in", "git", "contact"]
+	def get_names()#getter
+		@names
 	end
 	private def into_row(ind, el)
 		[ind, el.surname_in, el.git, el.contact] #все, кроме id
