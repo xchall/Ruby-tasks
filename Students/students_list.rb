@@ -2,25 +2,18 @@ require_relative "C:/Users/max/Desktop/3_curs_1_sem/Ruby/Students/data_list_stud
 require_relative "student_short"
 
 class StudentsList
+	def strategy=(strategy)
+    	@strategy = strategy #объект класса StudentsListYaml или StudentsListJson
+    end
 	def read_from_file(file_path)
-		raise NoImplementedError, "Реализация метода в другом классе"
+		@strategy.read_from_file(file_path)
 	end
-	def write_to_file(file_path)
-		raise NoImplementedError, "Реализация метода в другом классе"
+	def write_to_file(file_path, student_list)
+		@strategy.write_to_file(file_path, student_list)
 	end
-	private def to_hash()
-		data_hash = []
-		@student_list.each do |el|
-			hash = {}
-			hash[:id] = el.id
-			hash[:surname_in] = el.surname_in
-			hash[:git] = el.git
-			hash[:contact] = el.contact
-			data_hash << hash
-		end
-		data_hash
-	end
-	def initialize(student_list: nil)
+	
+	def initialize(student_list: nil, strategy)
+		@strategy = strategy
 		@student_list = student_list
 	end
 	def get_student_by_id(id)

@@ -1,7 +1,7 @@
 require 'json'
 require_relative "C:/Users/max/Desktop/3_curs_1_sem/Ruby/Students/data_list_student_short"
 require_relative "student_short"
-class StudentsListJson < StudentsList
+class StudentsListJson < Interface
 	def read_from_file(file_path)
 		file = File.read(file_path)
 		data_hash = JSON.parse(file)
