@@ -5,11 +5,11 @@ class DataListStudentShort < DataList
 		super(elems:elems)
 		@names = ["number", "surname_in", "git", "contact"]
 	end
-	def get_names()#getter
-		copy_names = @names.dup
-		copy_names
-	end
 	private def into_row(ind, el)
 		[ind, el.surname_in, el.git, el.contact] #все, кроме id
+	end
+	private def get_copy_names()
+		copy_names = @names.dup #поверхностное копирование
+		copy_names
 	end
 end
