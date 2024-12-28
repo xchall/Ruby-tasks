@@ -23,7 +23,11 @@ class DataList
 	end
 	#names - наименования столбцов у элементов 
 	def get_names()
-		raise NoImplementedError, "Реализация метода get_names в классе наследнике"
+		names = get_copy_names()
+		names
+	end
+	private def get_copy_names()
+		raise NoImplementedError, "Реализация операции get_copy_names в классе наследнике"
 	end
 	def get_data()
 		@some_list = [] #отчищаем
