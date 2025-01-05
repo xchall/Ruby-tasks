@@ -92,4 +92,30 @@ class HtmlTree
 			end
 		end
 	end
+	def select(&block)
+		result = []
+		queue = [@root]
+		until queue.empty?
+			current_tag = queue.shift #извлекаем первый элемент
+			if block.call(current_tag)
+				result.append(current_tag)
+			end
+			if current_tag.children
+				queue.concat(current_tag.children)
+			end
+		end
+		result
+	end
+	def reduce(accumulator, &block)
+		queue = [@root]
+		until queue.empty?
+			current_tag = queue.shift #извлекаем первый элемент
+			accumulator = block.call(accumulator, current_tag)
+			if current_tag.children
+				queue.concat(current_tag.children)
+			end
+		end
+		accumulator
+	end
+
 end
